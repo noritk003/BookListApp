@@ -1,3 +1,4 @@
+import 'package:book_list_app/add_book/add_book_page.dart';
 import 'package:book_list_app/book_list/book_list_model.dart';
 import 'package:book_list_app/domain/book.dart';
 import 'package:flutter/material.dart';
@@ -20,22 +21,46 @@ class BookListPage extends StatelessWidget {
               return CircularProgressIndicator();
             }
 
-            final List<Widget> widgets = books.map(
-              (book) => ListTile(
-                title: Text(book.title),
-                subtitle: Text(book.author),
-              ),
-            ).toList();
+            final List<Widget> widgets = books
+                .map(
+                  (book) => ListTile(
+                    title: Text(book.title),
+                    subtitle: Text(book.author),
+                  ),
+                )
+                .toList();
             return ListView(
               children: widgets,
             );
           }),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: null,
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
-        ),
+        floatingActionButton:
+            Consumer<BookListModel>(builder: (context, model, child) {
+          return FloatingActionButton(
+            onPressed: () async {
+              // 画面遷移
+              final bool? added = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddBookPage(),
+                  fullscreenDialog: true,
+                ),
+              );
+
+              if (added != null && added) {
+                final snackBar = SnackBar(
+                  backgroundColor: Colors.green,
+                  content: Text('本を追加しました'),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+
+              model.fetchBookList();
+            },
+            tooltip: 'Increment',
+            child: Icon(Icons.add),
+          );
+        }),
       ),
     );
   }
