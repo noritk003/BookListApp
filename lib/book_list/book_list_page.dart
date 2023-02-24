@@ -31,21 +31,17 @@ class BookListPage extends StatelessWidget {
                       title: Text(book.title),
                       subtitle: Text(book.author),
                     ),
-                    // key: const ValueKey(0),
                     endActionPane: ActionPane(
                       motion: ScrollMotion(),
                       children: [
+                        // 編集ボタン
                         SlidableAction(
-                          // An action can be bigger than the others.
-                          // flex: 2,
                           backgroundColor: Colors.black45,
                           foregroundColor: Colors.white,
                           icon: Icons.edit,
                           label: '編集',
                           onPressed: (BuildContext) async {
                             // 編集画面に遷移
-
-                            // 画面遷移
                             final String? title = await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -64,13 +60,16 @@ class BookListPage extends StatelessWidget {
                             model.fetchBookList();
                           },
                         ),
+
+                        // 削除ボタン
                         SlidableAction(
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white,
                           icon: Icons.delete,
                           label: '削除',
-                          onPressed: (BuildContext) {
+                          onPressed: (BuildContext) async {
                             // 削除しますか？ポップ表示
+                            await showComfirmDialog(context, book, model);
                           },
                         ),
                       ],
@@ -111,6 +110,39 @@ class BookListPage extends StatelessWidget {
           );
         }),
       ),
+    );
+  }
+
+  Future showComfirmDialog(
+      BuildContext context, Book book, BookListModel model) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("削除の確認"),
+          content: Text("『${book.title}』を削除しますか？"),
+          actions: [
+            TextButton(
+              child: Text("いいえ"),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: Text("はい"),
+              onPressed: () async {
+                await model.delete(book);
+                Navigator.pop(context);
+                final snackBar = SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Text('${book.title}を削除しました'),
+                );
+                model.fetchBookList();
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
