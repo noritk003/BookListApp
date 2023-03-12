@@ -9,6 +9,18 @@ class RegisterModel extends ChangeNotifier {
   String? email;
   String? password;
 
+  bool isLoading = false;
+
+  void startLoading() {
+    isLoading = true;
+    notifyListeners();
+  }
+
+  void endLoading() {
+    isLoading = false;
+    notifyListeners();
+  }
+
   void setEmail(String email) {
     this.email = email;
     notifyListeners();
