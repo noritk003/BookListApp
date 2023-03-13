@@ -9,6 +9,8 @@ class AddBookModel extends ChangeNotifier {
   String? title;
   String? author;
   File? imageFile;
+  String? uid;
+
   bool isLoading = false;
 
   void startLoading() {
