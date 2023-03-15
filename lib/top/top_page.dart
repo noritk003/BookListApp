@@ -9,46 +9,33 @@ class TopPage extends StatelessWidget {
     // create: (_) => LoginModel(),
     // child: Scaffold(
     return Scaffold(
-      appBar: AppBar(
-        title: Text('BookListApp'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('BookListApp'),
+      // ),
       body: Center(
-          // child: Consumer<LoginModel>(builder: (context, model, child) {
-          child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        // child: Consumer<LoginModel>(builder: (context, model, child) {
+        // child: Padding(
+        // padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            ElevatedButton(onPressed: () {}, child: Text('ログインする')),
+            Padding(
+              padding: const EdgeInsets.only(top: 50, bottom: 50),
+              child: Expanded(
+                  child: Container(
+                      width: 200,
+                      height: 200,
+                      child: Image.asset('images/book_mono.png'))),
+            ),
+            ElevatedButton(onPressed: () {}, child: Text('ログイン')),
             SizedBox(
               height: 8,
             ),
-            ElevatedButton(onPressed: () {}, child: Text('ログインする')),
-            SizedBox(
-              height: 16,
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                // model.startLoading();
-                // try {
-                //   await model.login();
-                //   Navigator.of(context).pop();
-                // } catch (e) {
-                //   final snackBar = SnackBar(
-                //     backgroundColor: Colors.red,
-                //     content: Text(e.toString()),
-                //   );
-                //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                // } finally {
-                //   model.endLoading();
-                // }
-              },
-              child: Text('ログインする'),
-            ),
+            ElevatedButton(onPressed: () {}, child: Text('新規登録')),
           ],
         ),
-      )
-          // }),
-          ),
+        // )
+        // }),
+      ),
     );
     // );
   }

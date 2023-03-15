@@ -1,4 +1,4 @@
-import 'package:book_list_app/book_list/book_list_page.dart';
+import 'package:book_list_app/top/top_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BookListApp',
-      home: BookListPage(),
+      home: TopPage(),
     );
   }
 }
