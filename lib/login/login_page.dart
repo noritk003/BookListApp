@@ -2,6 +2,7 @@ import 'package:book_list_app/register/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../book_list/book_list_page.dart';
 import 'longin_model.dart';
 
 class LoginPage extends StatelessWidget {
@@ -12,6 +13,7 @@ class LoginPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('ログイン'),
+          backgroundColor: Color(0xff009944),
         ),
         body: Center(
           child: Consumer<LoginModel>(builder: (context, model, child) {
@@ -50,7 +52,12 @@ class LoginPage extends StatelessWidget {
                           model.startLoading();
                           try {
                             await model.login();
-                            Navigator.of(context).pop();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BookListPage(),
+                                  fullscreenDialog: true,
+                                ));
                           } catch (e) {
                             final snackBar = SnackBar(
                               backgroundColor: Colors.red,
@@ -62,6 +69,10 @@ class LoginPage extends StatelessWidget {
                             model.endLoading();
                           }
                         },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.green[700]),
+                        ),
                         child: Text('ログインする'),
                       ),
                       TextButton(

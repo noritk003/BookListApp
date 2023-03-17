@@ -1,6 +1,8 @@
-import 'package:book_list_app/register/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../login/login_page.dart';
+import '../register/register_page.dart';
 
 class TopPage extends StatelessWidget {
   @override
@@ -19,18 +21,52 @@ class TopPage extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 50, bottom: 50),
+              padding: const EdgeInsets.only(top: 200, bottom: 30),
+              child: Text(
+                'BookListApp',
+                style: TextStyle(fontSize: 36),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50),
               child: Expanded(
                   child: Container(
-                      width: 200,
-                      height: 200,
-                      child: Image.asset('images/book_mono.png'))),
+                      width: 300,
+                      height: 300,
+                      child: Image.asset('images/book_yellow_bg_clear.png'))),
             ),
-            ElevatedButton(onPressed: () {}, child: Text('ログイン')),
+            ElevatedButton(
+                onPressed: () async {
+                  // ログイン画面へ遷移
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(),
+                      fullscreenDialog: true,
+                    ),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.green[700]),
+                ),
+                child: Text(
+                  'ログイン',
+                  style: TextStyle(fontSize: 20),
+                )),
             SizedBox(
               height: 8,
             ),
-            ElevatedButton(onPressed: () {}, child: Text('新規登録')),
+            TextButton(
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RegisterPage(),
+                      fullscreenDialog: true,
+                    ),
+                  );
+                },
+                child: Text('新規登録の方はこちら')),
           ],
         ),
         // )

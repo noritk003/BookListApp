@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../edit_book/edit_book_page.dart';
+import '../top/top_page.dart';
 
 class BookListPage extends StatelessWidget {
   @override
@@ -16,18 +17,20 @@ class BookListPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('本一覧'),
+          automaticallyImplyLeading: false,
           actions: [
-            IconButton(onPressed: () async {
-              // 画面遷移
-              await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginPage(),
-                  fullscreenDialog: true,
-                ),
-              );
-
-            }, icon: Icon(Icons.person)),
+            IconButton(
+                onPressed: () async {
+                  // 画面遷移
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TopPage(),
+                      fullscreenDialog: true,
+                    ),
+                  );
+                },
+                icon: Icon(Icons.logout)),
           ],
         ),
         body: Center(
