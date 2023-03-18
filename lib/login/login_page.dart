@@ -71,7 +71,7 @@ class LoginPage extends StatelessWidget {
                         },
                         style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all(Colors.green[700]),
+                              MaterialStateProperty.all(Colors.green[600]),
                         ),
                         child: Text('ログインする'),
                       ),

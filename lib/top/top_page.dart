@@ -47,7 +47,7 @@ class TopPage extends StatelessWidget {
                   );
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.green[700]),
+                  backgroundColor: MaterialStateProperty.all(Colors.green[600]),
                 ),
                 child: Text(
                   'ログイン',
