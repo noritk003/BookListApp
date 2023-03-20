@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddBookModel extends ChangeNotifier {
+  // AddBookModel(this.uid);
+
   String? title;
   String? author;
   File? imageFile;
@@ -49,7 +51,6 @@ class AddBookModel extends ChangeNotifier {
     uid = 'a';
 
     // uid取得
-    List<MyUser>? users;
     final QuerySnapshot snapshot =
         await FirebaseFirestore.instance.collection('users').get();
     final List<MyUser> users = snapshot.docs.map((DocumentSnapshot document) {
@@ -57,6 +58,8 @@ class AddBookModel extends ChangeNotifier {
       final String uid = data['uid'];
       return MyUser(uid);
     }).toList();
+
+    uid = FirebaseAuth.instance.currentUser!.uid;
 
     // firestoreに追加
     await doc.set({

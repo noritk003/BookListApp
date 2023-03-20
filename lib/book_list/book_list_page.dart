@@ -1,7 +1,8 @@
 import 'package:book_list_app/add_book/add_book_page.dart';
 import 'package:book_list_app/book_list/book_list_model.dart';
 import 'package:book_list_app/domain/book.dart';
-import 'package:book_list_app/login/login_page.dart';
+import 'package:book_list_app/login/longin_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -10,6 +11,12 @@ import '../edit_book/edit_book_page.dart';
 import '../top/top_page.dart';
 
 class BookListPage extends StatelessWidget {
+  // String uid = '';
+
+  // BookListPage(String uid) {
+  //   this.uid = uid;
+  // }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<BookListModel>(
@@ -19,18 +26,22 @@ class BookListPage extends StatelessWidget {
           title: Text('本一覧'),
           automaticallyImplyLeading: false,
           actions: [
-            IconButton(
-                onPressed: () async {
-                  // 画面遷移
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TopPage(),
-                      fullscreenDialog: true,
-                    ),
-                  );
-                },
-                icon: Icon(Icons.logout)),
+            Consumer<BookListModel>(builder: (context, model, child) {
+              return IconButton(
+                  onPressed: () async {
+                    // ログアウト
+                    await model.logout();
+                    // 画面遷移
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TopPage(),
+                        fullscreenDialog: true,
+                      ),
+                    );
+                  },
+                  icon: Icon(Icons.logout));
+            }),
           ],
         ),
         body: Center(

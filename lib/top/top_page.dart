@@ -1,23 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../login/login_page.dart';
 import '../register/register_page.dart';
 
 class TopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // return ChangeNotifierProvider<LoginModel>(
-    // create: (_) => LoginModel(),
-    // child: Scaffold(
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('BookListApp'),
-      // ),
       body: Center(
-        // child: Consumer<LoginModel>(builder: (context, model, child) {
-        // child: Padding(
-        // padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             Padding(
@@ -69,10 +58,7 @@ class TopPage extends StatelessWidget {
                 child: Text('新規登録の方はこちら')),
           ],
         ),
-        // )
-        // }),
       ),
     );
-    // );
   }
 }

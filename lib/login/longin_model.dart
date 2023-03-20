@@ -7,6 +7,7 @@ class LoginModel extends ChangeNotifier {
 
   String? email;
   String? password;
+  String? uid = FirebaseAuth.instance.currentUser!.uid;
 
   bool isLoading = false;
 
@@ -30,6 +31,10 @@ class LoginModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  // String? getUid() {
+  //   return uid;
+  // }
+
   Future login() async {
     this.email = titleController.text;
     this.password = authorController.text;
@@ -46,8 +51,9 @@ class LoginModel extends ChangeNotifier {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email!, password: password!);
 
-      final currentUser = FirebaseAuth.instance.currentUser;
-      final uid = currentUser!.uid;
+      // final currentUser = FirebaseAuth.instance.currentUser;
+      // uid = currentUser!.uid;
+      // return uid;
     }
   }
 }

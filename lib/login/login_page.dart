@@ -43,6 +43,7 @@ class LoginPage extends StatelessWidget {
                         onChanged: (text) {
                           model.setPassword(text);
                         },
+                        obscureText: true,
                       ),
                       SizedBox(
                         height: 16,
@@ -51,6 +52,7 @@ class LoginPage extends StatelessWidget {
                         onPressed: () async {
                           model.startLoading();
                           try {
+                            // String uid = await model.login();
                             await model.login();
                             Navigator.push(
                                 context,
