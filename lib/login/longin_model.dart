@@ -7,7 +7,7 @@ class LoginModel extends ChangeNotifier {
 
   String? email;
   String? password;
-  String? uid = FirebaseAuth.instance.currentUser!.uid;
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
 
   bool isLoading = false;
 
@@ -31,7 +31,7 @@ class LoginModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // String? getUid() {
+  // String getUid() {
   //   return uid;
   // }
 

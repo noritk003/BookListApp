@@ -11,7 +11,8 @@ class BookListModel extends ChangeNotifier {
   String id = '';
   String title = '';
   String author = '';
-  String? imgURL = '';
+  String? imgURL;
+  String? uid;
 
   void fetchBookList() async {
     // getMyBooks('userId');
@@ -26,17 +27,20 @@ class BookListModel extends ChangeNotifier {
     // QuerySnapshot snapshot = await fireBaseFirestore
     //     .where(uid!, isEqualTo: FirebaseAuth.instance.currentUser!.uid)
     //     .get();
-    final List<Book> books = snapshot.docs.map((DocumentSnapshot document) {
+    List<Book> books = snapshot.docs.map((DocumentSnapshot document) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      if (uid == data['uid']) {
-        final String id = document.id;
-        final String title = data['title'];
-        final String author = data['author'];
-        final String? imgURL = data['imgURL'];
-      }
-      return Book(id, title, author, imgURL);
+      // if (uid == data['uid']) {
+      final String id = document.id;
+      final String title = data['title'];
+      final String author = data['author'];
+      final String? imgURL = data['imgURL'];
+      this.uid = data['uid'];
+      // }
+      return Book(id, title, author, imgURL, this.uid!);
     }).toList();
 
+    books.removeWhere((book) => book.uid != uid);
+    // Map<String, dynamic> data = document.data() as Map<String, dynamic>;
     this.books = books;
     notifyListeners();
   }
