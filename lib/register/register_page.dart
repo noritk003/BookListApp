@@ -10,6 +10,7 @@ class RegisterPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('新規登録'),
+          backgroundColor: Color(0xff009944),
         ),
         body: Center(
           child: Consumer<RegisterModel>(builder: (context, model, child) {
@@ -62,6 +63,10 @@ class RegisterPage extends StatelessWidget {
                             model.endLoading();
                           }
                         },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.green[600]),
+                        ),
                         child: Text('登録する'),
                       )
                     ],

@@ -52,7 +52,6 @@ class LoginPage extends StatelessWidget {
                         onPressed: () async {
                           model.startLoading();
                           try {
-                            // String uid = await model.login();
                             await model.login();
                             Navigator.push(
                                 context,
@@ -61,6 +60,17 @@ class LoginPage extends StatelessWidget {
                                   fullscreenDialog: true,
                                 ));
                           } catch (e) {
+                            String errorMessage = '';
+                            if (e.toString() ==
+                                LoginModel.EmailNotRegistError) {
+                              errorMessage = 'そのメールアドレスは登録されていません。';
+                            } else if (e.toString() ==
+                                LoginModel.DifferentEmailFormatError) {
+                              errorMessage = 'メールアドレスを入力してください。';
+                            } else if (e.toString() ==
+                                LoginModel.DifferentPasswordError) {
+                              errorMessage = 'パスワードが間違っています。';
+                            }
                             final snackBar = SnackBar(
                               backgroundColor: Colors.red,
                               content: Text(e.toString()),

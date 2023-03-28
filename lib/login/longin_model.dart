@@ -11,6 +11,14 @@ class LoginModel extends ChangeNotifier {
 
   bool isLoading = false;
 
+  static String EmailNotRegistError =
+      '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.';
+  // static String DifferentEmailFormatError = '[firebase_auth/invalid-email] The email address is badly formatted.';
+  static String DifferentEmailFormatError =
+      'The email address is badly formatted.';
+  static String DifferentPasswordError =
+      '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.';
+
   void startLoading() {
     isLoading = true;
     notifyListeners();
@@ -31,29 +39,21 @@ class LoginModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // String getUid() {
-  //   return uid;
-  // }
-
   Future login() async {
     this.email = titleController.text;
     this.password = authorController.text;
 
     if (email == null || email == "") {
-      throw 'タイトルが入力されていません';
+      throw 'メールアドレスが入力されていません';
     }
     if (password == null || password!.isEmpty) {
-      throw '著者が入力されていません';
+      throw 'パスワードが入力されていません';
     }
 
     // ログイン
     if (email != null && password != null) {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email!, password: password!);
-
-      // final currentUser = FirebaseAuth.instance.currentUser;
-      // uid = currentUser!.uid;
-      // return uid;
     }
   }
 }

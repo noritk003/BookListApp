@@ -10,6 +10,7 @@ class AddBookPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('本を追加'),
+          backgroundColor: Color(0xff009944),
         ),
         body: Center(
           child: Consumer<AddBookModel>(builder: (context, model, child) {
@@ -73,6 +74,10 @@ class AddBookPage extends StatelessWidget {
                             model.endLoading();
                           }
                         },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.green[600]),
+                        ),
                         child: Text('追加する'),
                       )
                     ],

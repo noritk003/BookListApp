@@ -15,6 +15,7 @@ class EditBookPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('本を編集'),
+          backgroundColor: Color(0xff009944),
         ),
         body: Center(
           child: Consumer<EditBookModel>(builder: (context, model, child) {

@@ -24,6 +24,7 @@ class BookListPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('本一覧'),
+          backgroundColor: Color(0xff009944),
           automaticallyImplyLeading: false,
           actions: [
             Consumer<BookListModel>(builder: (context, model, child) {
@@ -133,11 +134,11 @@ class BookListPage extends StatelessWidget {
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
-
               model.fetchBookList();
             },
             tooltip: 'Increment',
             child: Icon(Icons.add),
+            backgroundColor: Color(0xff009944),
           );
         }),
       ),
