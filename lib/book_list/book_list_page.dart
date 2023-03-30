@@ -1,8 +1,6 @@
 import 'package:book_list_app/add_book/add_book_page.dart';
 import 'package:book_list_app/book_list/book_list_model.dart';
 import 'package:book_list_app/domain/book.dart';
-import 'package:book_list_app/login/longin_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -11,12 +9,6 @@ import '../edit_book/edit_book_page.dart';
 import '../top/top_page.dart';
 
 class BookListPage extends StatelessWidget {
-  // String uid = '';
-
-  // BookListPage(String uid) {
-  //   this.uid = uid;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<BookListModel>(
@@ -30,16 +22,7 @@ class BookListPage extends StatelessWidget {
             Consumer<BookListModel>(builder: (context, model, child) {
               return IconButton(
                   onPressed: () async {
-                    // ログアウト
-                    await model.logout();
-                    // 画面遷移
-                    await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TopPage(),
-                        fullscreenDialog: true,
-                      ),
-                    );
+                    await showLogoutComfirmDialog(context, model);
                   },
                   icon: Icon(Icons.logout));
             }),
@@ -145,6 +128,7 @@ class BookListPage extends StatelessWidget {
     );
   }
 
+// 削除確認ポップアップ
   Future showComfirmDialog(
       BuildContext context, Book book, BookListModel model) {
     return showDialog(
@@ -170,6 +154,39 @@ class BookListPage extends StatelessWidget {
                 );
                 model.fetchBookList();
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // ログアウト確認ポップアップ
+  Future showLogoutComfirmDialog(BuildContext context, BookListModel model) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("ログアウトの確認"),
+          content: Text("ログアウトしますか？"),
+          actions: [
+            TextButton(
+              child: Text("いいえ"),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: Text("はい"),
+              onPressed: () async {
+                await model.logout();
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TopPage(),
+                    fullscreenDialog: true,
+                  ),
+                );
               },
             ),
           ],

@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:book_list_app/domain/user.dart';
-import 'package:book_list_app/login/longin_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddBookModel extends ChangeNotifier {
-  // AddBookModel(this.uid);
 
   String? title;
   String? author;
@@ -47,8 +44,6 @@ class AddBookModel extends ChangeNotifier {
           .putFile(imageFile!);
       imgURL = await task.ref.getDownloadURL();
     }
-
-    uid = 'a';
 
     // uid取得
     final QuerySnapshot snapshot =

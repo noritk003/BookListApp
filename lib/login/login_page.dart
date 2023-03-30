@@ -1,4 +1,5 @@
 import 'package:book_list_app/register/register_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -59,21 +60,18 @@ class LoginPage extends StatelessWidget {
                                   builder: (context) => BookListPage(),
                                   fullscreenDialog: true,
                                 ));
-                          } catch (e) {
+                          } on FirebaseAuthException catch (e) {
                             String errorMessage = '';
-                            if (e.toString() ==
-                                LoginModel.EmailNotRegistError) {
+                            if (e.code == 'user-not-found') {
                               errorMessage = 'そのメールアドレスは登録されていません。';
-                            } else if (e.toString() ==
-                                LoginModel.DifferentEmailFormatError) {
+                            } else if (e.code == 'invalid-email') {
                               errorMessage = 'メールアドレスを入力してください。';
-                            } else if (e.toString() ==
-                                LoginModel.DifferentPasswordError) {
+                            } else if (e.code == 'wrong-password') {
                               errorMessage = 'パスワードが間違っています。';
                             }
                             final snackBar = SnackBar(
                               backgroundColor: Colors.red,
-                              content: Text(e.toString()),
+                              content: Text(errorMessage),
                             );
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);

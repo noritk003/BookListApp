@@ -11,14 +11,6 @@ class LoginModel extends ChangeNotifier {
 
   bool isLoading = false;
 
-  static String EmailNotRegistError =
-      '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.';
-  // static String DifferentEmailFormatError = '[firebase_auth/invalid-email] The email address is badly formatted.';
-  static String DifferentEmailFormatError =
-      'The email address is badly formatted.';
-  static String DifferentPasswordError =
-      '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.';
-
   void startLoading() {
     isLoading = true;
     notifyListeners();
